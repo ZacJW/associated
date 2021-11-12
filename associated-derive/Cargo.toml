@@ -1,5 +1,8 @@
 [package]
 name = "associated-derive"
+keywords = ["enum", "associated", "constants", "derive"]
+categories = ["no-std"]
+license = "MIT"
 version = "0.1.0"
 edition = "2021"
 
