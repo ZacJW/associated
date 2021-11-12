@@ -179,6 +179,5 @@ pub fn associated_derive(input: TokenStream) -> TokenStream {
             }
         }
     };
-    eprintln!("{}", impl_block.to_string());
     impl_block.into()
 }
