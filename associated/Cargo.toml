@@ -1,5 +1,8 @@
 [package]
 name = "associated"
+description = "A trait for associating enum variants with constants"
+readme = "README.md"
+repository = "https://github.com/ZacJW/associated"
 keywords = ["enum", "associated", "constants"]
 categories = ["no-std"]
 license = "MIT"
@@ -9,7 +12,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-associated-derive = { path = "../associated-derive/", optional = true}
+associated-derive = { version = "0.1.0", path = "../associated-derive/", optional = true }
 
 [features]
+default = ["derive"]
 derive = ["associated-derive"]
