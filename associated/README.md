@@ -2,7 +2,7 @@
 
 A trait to associate enum variants with constants. See [associated-derive](https://docs.rs/associated-derive) for deriving this trait automatically.
 
-Derive support is enabled with the `"derive"` feature, which is enabled by default.
+Derive support is enabled with the `"derive"` feature.
 
 ## Example
 
