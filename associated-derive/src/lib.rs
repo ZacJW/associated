@@ -28,7 +28,7 @@
 //! ```
 //!
 //! #### Generated Implementation
-//! 
+//!
 //! ```rust
 //! impl associated::Associated for Phonetic {
 //!     type AssociatedType = &'static str;
@@ -36,21 +36,21 @@
 //!         match self {
 //!             Phonetic::Alpha => {
 //!                 const ASSOCIATED: &'static str = "Alpha";
-//!                 &ASSOCIATED 
+//!                 &ASSOCIATED
 //!             },
 //!             Phonetic::Bravo => &"Bravo",
 //!         }
 //!     }
 //! }
 //! ```
-//! 
+//!
 //! ### Note
-//! 
+//!
 //! If you give a variant both an `#[assoc]` and an `#[assoc_const]` attribute, or multiple `#[assoc]`
 //! or `#[assoc_const]` attributes, only the first will be considered. Including more than one is not
 //! currently an error, but this **will** change so only use one `#[assoc]` or `#[assoc_const]`
 //! attribute per variant.
-//! 
+//!
 //! See [associated](https://docs.rs/associated) for retrieving associated constants.
 
 use proc_macro::{self, TokenStream};
@@ -176,7 +176,7 @@ fn parse_associated_values<'a>(
 }
 
 /// See [crate-level] documentation.
-/// 
+///
 /// [crate-level]: crate
 #[proc_macro_derive(Associated, attributes(associated, assoc, assoc_const))]
 pub fn associated_derive(input: TokenStream) -> TokenStream {
@@ -184,7 +184,7 @@ pub fn associated_derive(input: TokenStream) -> TokenStream {
         attrs,
         vis: _,
         ident,
-        generics: _,
+        generics,
         data,
     } = parse_macro_input!(input);
     let associated = match (&attrs).iter().find(|&attr| match attr.path.get_ident() {
@@ -226,9 +226,9 @@ pub fn associated_derive(input: TokenStream) -> TokenStream {
     let associated_type = args.assoc_type;
 
     let match_block = generate_match_body(&ident, &associated_type, &associated_variants);
-
+    let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
     let impl_block = quote! {
-        impl associated::Associated for #ident {
+        impl #impl_generics associated::Associated for #ident #ty_generics #where_clause {
             type AssociatedType = #associated_type;
             fn get_associated(&self) -> &'static Self::AssociatedType {
                 match self {
